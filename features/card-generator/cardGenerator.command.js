@@ -1,4 +1,7 @@
 const {getBinInfo} = require('../../services/bin.service');
+const {parseInput} = require('./cardGenerator.parser');
+const {generateCards} = require('./cardGenerator.service');
+const { Markup } = require('telegraf');
 
 function registerCardGenerator(bot) {
 bot.command('gen', async (ctx) => {
