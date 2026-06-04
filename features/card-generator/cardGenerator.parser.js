@@ -81,3 +81,5 @@ function parseInput(fullInput) {
         originalInput: mainPart
     };
 }
+
+module.exports = { parseInput };

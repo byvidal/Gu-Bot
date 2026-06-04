@@ -105,3 +105,5 @@ function generateCards(params) {
     
     return cards;
 }
+
+module.exports = { generateCards };

@@ -8,13 +8,12 @@ const { registerErrorHandler } = require('./utils/errorHandler');
 
 // Si decides mantener tu comando de tarjetas, regístralo aquí:
 const { registerCardGenerator } = require('./features/card-generator/cardGenerator.command');
-const { registerRegenAction } = require('./features/card-generator/regen.action');
+const { registerRegenAction } = require('./features/card-generator/cardGenerator.actions');
 
 registerStartCommand(bot);
 registerMenuActions(bot);
 registerCloseAction(bot);
 registerErrorHandler(bot);
-
 registerCardGenerator(bot);
 registerRegenAction(bot);
 
