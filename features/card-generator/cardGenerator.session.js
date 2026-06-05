@@ -1,2 +1,2 @@
 const userSessions = new Map();
-module.exports = "";
+module.exports = { userSessions };

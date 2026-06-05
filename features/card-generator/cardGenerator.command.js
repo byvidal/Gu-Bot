@@ -2,6 +2,7 @@ const {getBinInfo} = require('../../services/bin.service');
 const {parseInput} = require('./cardGenerator.parser');
 const {generateCards} = require('./cardGenerator.service');
 const { Markup } = require('telegraf');
+const {userSessions} = require('./cardGenerator.session');
 
 function registerCardGenerator(bot) {
 bot.command('gen', async (ctx) => {
@@ -39,24 +40,21 @@ bot.command('gen', async (ctx) => {
         const cards = generateCards(params);
         
         // Construir mensaje en formato exacto solicitado
-        let text = `⚡ GU CHKR | CC Generator\n`;
-        text += `━━━━━━━━━━━━━━━━━━━━\n`;
-        text += `Format: <code>${params.originalInput}</code>\n`;
+        let //text = `━━━━━━━━━━━━━━━━━━━━\n`;
+        text = `⚡ GU Generator\n`;
         text += `━━━━━━━━━━━━━━━━━━━━\n`;
         
         // Lista de tarjetas en formato: numero|mes|año|cvv
         cards.forEach((card) => {
-            text += `<code>${card.number}|${card.month}|${card.year}|${card.cvv}</code>\n`;
+            text += `${card.number}|${card.month}|${card.year}|${card.cvv}\n`;
         });
         
         text += `━━━━━━━━━━━━━━━━━━━━\n`;
-        text += `➡️ Info: <code>${(binInfo.scheme || 'Unknown').toUpperCase()} - ${(binInfo.type || 'Unknown').toUpperCase()}</code>\n`;
-        text += `➡️ Issuer: <code>${binInfo.bank?.name || 'Unknown'} - ${(binInfo.type || 'Unknown').toUpperCase()}</code>\n`;
-        text += `➡️ Country: <code>${binInfo.country?.name || 'Unknown'} ${binInfo.country?.emoji || '🏳️'}</code>\n`;
+        text += `Info: ${(binInfo.scheme || 'Unknown').toUpperCase()} - ${(binInfo.type || 'Unknown').toUpperCase()}\n`;
+        text += `Issuer: ${binInfo.bank?.name || 'Unknown'} - ${(binInfo.type || 'Unknown').toUpperCase()}\n`;
+        text += `Country: ${binInfo.country?.name || 'Unknown'} ${binInfo.country?.emoji || '🏳️'}\n`;
         text += `━━━━━━━━━━━━━━━━━━━━\n`;
         text += `👤 Req By: ${user.first_name}\n`;
-        text += `━━━━━━━━━━━━━━━━━━━━\n`;
-        text += `🔥 Bot Version: alpha 1`;
         
         const keyboard = Markup.inlineKeyboard([
             [Markup.button.callback('🔄 RE-GEN', `regen_${sessionId}`)]

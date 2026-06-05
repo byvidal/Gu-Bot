@@ -1,4 +1,9 @@
 // Handler RE-GEN
+const {userSessions} = require('./cardGenerator.session');
+const { getBinInfo } = require('../../services/bin.service');
+const { generateCards } = require('./cardGenerator.service');
+const { Markup } = require('telegraf');
+
 function registerRegenAction(bot){
     bot.action(/^regen_(.+)$/, async (ctx) => {
         const sessionId = ctx.match[1];
@@ -23,7 +28,7 @@ function registerRegenAction(bot){
         
             let text = `⚡ GU CHK | CC Generator\n`;
             text += `━━━━━━━━━━━━━━━━━━━━\n`;
-            text += `Format: <code>${params.originalInput}</code>\n`;
+            text += `Format: ${params.originalInput}\n`;
             text += `━━━━━━━━━━━━━━━━━━━━\n`;
         
             cards.forEach((card) => {
@@ -31,9 +36,9 @@ function registerRegenAction(bot){
             });
         
             text += `━━━━━━━━━━━━━━━━━━━━\n`;
-            text += `➡️ Info: <code>${(binInfo.scheme || 'Unknown').toUpperCase()} - ${(binInfo.type || 'Unknown').toUpperCase()}</code>\n`;
-            text += `➡️ Issuer: <code>${binInfo.bank?.name || 'Unknown'} - ${(binInfo.type || 'Unknown').toUpperCase()}</code>\n`;
-            text += `➡️ Country: <code>${binInfo.country?.name || 'Unknown'} ${binInfo.country?.emoji || '🏳️'}</code>\n`;
+            text += `➡️ Info: ${(binInfo.scheme || 'Unknown').toUpperCase()} - ${(binInfo.type || 'Unknown').toUpperCase()}\n`;
+            text += `➡️ Issuer: ${binInfo.bank?.name || 'Unknown'} - ${(binInfo.type || 'Unknown').toUpperCase()}\n`;
+            text += `➡️ Country: ${binInfo.country?.name || 'Unknown'} ${binInfo.country?.emoji || '🏳️'}\n`;
             text += `━━━━━━━━━━━━━━━━━━━━\n`;
             text += `👤 Req By: ${user.first_name}\n`;
             text += `━━━━━━━━━━━━━━━━━━━━\n`;

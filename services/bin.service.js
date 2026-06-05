@@ -1,6 +1,7 @@
 // ============================================
 // API BINLIST
 // ============================================
+const axios = require('axios');
 
 async function getBinInfo(bin) {
     try {
@@ -31,3 +32,5 @@ function detectCardType(bin) {
     if (firstTwo === 65 || bin.substring(0, 4) === '6011') return 'discover';
     return 'unknown';
 }
+
+module.exports = { getBinInfo, detectCardType };
