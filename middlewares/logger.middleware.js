@@ -1,4 +1,4 @@
-const { saveUser, SaveMessage, saveMessage } = require('../database/db');
+const { saveUser, saveMessage } = require('../database/db');
 
 function registerLogger(bot) {
     bot.use(async (ctx, next) => {
@@ -8,6 +8,7 @@ function registerLogger(bot) {
         } catch (error) {
             console.error('Error guardando actividad:', error);
         }
+        return next();
     });
 }
 

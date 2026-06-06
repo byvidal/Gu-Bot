@@ -10,6 +10,7 @@ const { startAdminServer } = require('./admin/server');
 const { registerCardGenerator } = require('./features/card-generator/cardGenerator.command');
 const { registerRegenAction } = require('./features/card-generator/cardGenerator.actions');
 
+registerLogger(bot);
 registerStartCommand(bot);
 registerMenuActions(bot);
 registerCloseAction(bot);
@@ -17,6 +18,7 @@ registerErrorHandler(bot);
 registerCardGenerator(bot);
 registerRegenAction(bot);
 
+startAdminServer(bot);
 bot.launch();
 console.log('Bot iniciado');
 
