@@ -5,7 +5,7 @@ db.prepare(`
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY,
         username TEXT,
-        firt_name TEXT,
+        first_name TEXT,
         last_name TEXT,
         is_bot INTEGER,
         language_code TEXT,
