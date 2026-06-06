@@ -8,7 +8,7 @@ module.exports = (bot) => {
     if (!ctx.message.reply_to_message) {
       return ctx.reply(
         '⚡ GU CHKR | Amazon Checker\n' +
-        '➖➖➖➖➖➖➖➖➖➖\n' +
+        '━━━━━━━━━━━━━━━━━━━━\n' +
         '❌ Responde a un mensaje con tarjetas\n\n' +
         'Uso: /amz us (responde al mensaje de tarjetas)'
       );
@@ -72,7 +72,7 @@ module.exports = (bot) => {
 
       // Enviar resultados formateados
       const formatted = formatResults(results, cmd.region, liveCount, deadCount, user);
-      await ctx.reply(formatted);
+      await ctx.reply({ text: formatted, parse_mode: 'HTML' });
 
     } catch (error) {
       console.error('Check error:', error);
@@ -83,36 +83,34 @@ module.exports = (bot) => {
 
 function formatResults(results, region, liveCount, deadCount, user) {
   let text = `⚡ GU CHKR | Amazon Checker\n`;
-  text += `➖➖➖➖➖➖➖➖➖➖\n`;
-  text += `🌎 Región: ${region.toUpperCase()}\n`;
-  text += `📊 Total: ${results.length} | ✅ LIVE: ${liveCount} | ❌ DEAD: ${deadCount}\n`;
-  text += `➖➖➖➖➖➖➖➖➖➖\n\n`;
+  text += `━━━━━━━━━━━━━━━━━━━━\n`;
+  text += `Región: ${region.toUpperCase()}\n`;
+  text += `Total: ${results.length} | ✅ LIVE: ${liveCount} | ❌ DEAD: ${deadCount}\n`;
+  text += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 
   const lives = results.filter(r => r.check.status === 'LIVE');
   const deads = results.filter(r => r.check.status === 'DEAD');
 
   if (lives.length > 0) {
     text += `✅ LIVE CARDS:\n`;
-    text += `➖➖➖➖➖➖➖➖➖➖\n`;
+    text += `━━━━━━━━━━━━━━━━━━━━\n`;
     lives.forEach(c => {
-      text += `${c.number}|${c.month}|${c.year}|${c.cvv}\n`;
+      text += `\${c.number}|${c.month}|${c.year}|${c.cvv}\\n`;
       text += `↳ ${c.check.message}\n\n`;
     });
   }
 
   if (deads.length > 0) {
     text += `❌ DEAD CARDS:\n`;
-    text += `➖➖➖➖➖➖➖➖➖➖\n`;
+    text += `━━━━━━━━━━━━━━━━━━━━\n`;
     deads.forEach(c => {
-      text += `${c.number}|${c.month}|${c.year}|${c.cvv}\n`;
+      text += `\${c.number}|${c.month}|${c.year}|${c.cvv}\\n`;
       text += `↳ ${c.check.message}\n\n`;
     });
   }
 
-  text += `➖➖➖➖➖➖➖➖➖➖\n`;
+  text += `━━━━━━━━━━━━━━━━━━━━\n`;
   text += `👤 Req By: ${user.first_name}\n`;
-  text += `➖➖➖➖➖➖➖➖➖➖\n`;
-  text += `🔥 Bot Version: alpha 1`;
 
   return text;
 }
