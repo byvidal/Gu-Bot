@@ -3,6 +3,7 @@ const {parseInput} = require('./cardGenerator.parser');
 const {generateCards} = require('./cardGenerator.service');
 const { Markup } = require('telegraf');
 const {userSessions} = require('./cardGenerator.session');
+const { parse } = require('dotenv');
 
 function registerCardGenerator(bot) {
 bot.command('gen', async (ctx) => {
@@ -46,7 +47,7 @@ bot.command('gen', async (ctx) => {
         
         // Lista de tarjetas en formato: numero|mes|año|cvv
         cards.forEach((card) => {
-            text += `${card.number}|${card.month}|${card.year}|${card.cvv}\n`;
+            text += `<code>${card.number}|${card.month}|${card.year}|${card.cvv}</code>\n`;
         });
         
         text += `━━━━━━━━━━━━━━━━━━━━\n`;
@@ -60,7 +61,9 @@ bot.command('gen', async (ctx) => {
             [Markup.button.callback('🔄 RE-GEN', `regen_${sessionId}`)]
         ]);
         
-        await ctx.reply(text, keyboard);
+        await ctx.reply(text,{
+            parse_mode: 'HTML',
+            ...keyboard});
         
     } catch (error) {
         ctx.reply(

@@ -26,29 +26,28 @@ function registerRegenAction(bot){
             const binInfo = await getBinInfo(params.baseBin);
             const cards = generateCards(params);
         
-            let text = `⚡ GU CHK | CC Generator\n`;
+            let text = `⚡ GU Generator\n`;
             text += `━━━━━━━━━━━━━━━━━━━━\n`;
-            text += `Format: ${params.originalInput}\n`;
-            text += `━━━━━━━━━━━━━━━━━━━━\n`;
-        
+            
             cards.forEach((card) => {
-                text += `${card.number}|${card.month}|${card.year}|${card.cvv}\n`;
+                text += `<code>${card.number}|${card.month}|${card.year}|${card.cvv}</code>\n`;
             });
         
             text += `━━━━━━━━━━━━━━━━━━━━\n`;
-            text += `➡️ Info: ${(binInfo.scheme || 'Unknown').toUpperCase()} - ${(binInfo.type || 'Unknown').toUpperCase()}\n`;
-            text += `➡️ Issuer: ${binInfo.bank?.name || 'Unknown'} - ${(binInfo.type || 'Unknown').toUpperCase()}\n`;
-            text += `➡️ Country: ${binInfo.country?.name || 'Unknown'} ${binInfo.country?.emoji || '🏳️'}\n`;
+            text += `Info: ${(binInfo.scheme || 'Unknown').toUpperCase()} - ${(binInfo.type || 'Unknown').toUpperCase()}\n`;
+            text += `Issuer: ${binInfo.bank?.name || 'Unknown'} - ${(binInfo.type || 'Unknown').toUpperCase()}\n`;
+            text += `Country: ${binInfo.country?.name || 'Unknown'} ${binInfo.country?.emoji || '🏳️'}\n`;
             text += `━━━━━━━━━━━━━━━━━━━━\n`;
             text += `👤 Req By: ${user.first_name}\n`;
-            text += `━━━━━━━━━━━━━━━━━━━━\n`;
-            text += `🔥 Bot Version: alpha 1`;
         
             const keyboard = Markup.inlineKeyboard([
                 [Markup.button.callback('🔄 RE-GEN', `regen_${sessionId}`)]
             ]);
         
-            await ctx.editMessageText(text, keyboard);
+            await ctx.editMessageText(text, {
+                parse_mode: 'HTML',
+                ...keyboard
+            });
         
         } catch (error) {
             ctx.reply('❌ Error: ' + error.message);

@@ -24,7 +24,7 @@ Estas dependencias están listadas en `package.json`.
 1. Clona el repositorio:
 
 ```bash
-git clone <repo-url>
+git clone <https://github.com/byvidal/gu-bot>
 cd GuChkr-bot
 ```
 
