@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/public/admin.css">
+</head>
+<body>
+
+<%- include('partials/sidebar') %>
+
+<div class="content">
+
+    <h1>Dashboard</h1>
+
+    <div class="cards">
+        <div class="card">
+            <h2>Usuarios</h2>
+            <h1><%= totalUsers %></h1>
+        </div>
+
+        <div class="card">
+            <h2>Mensajes</h2>
+            <h1><%= totalMessages %></h1>
+        </div>
+    </div>
+
+    <h2>Últimos usuarios</h2>
+
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Última vez</th>
+            </tr>
+
+            <% latestUsers.forEach(user => { %>
+                <tr>
+                    <td><%= user.id %></td>
+                    <td>@<%= user.username %></td>
+                    <td><%= user.last_seen %></td>
+                </tr>
+            <% }) %>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

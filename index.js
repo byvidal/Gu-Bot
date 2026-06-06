@@ -5,8 +5,8 @@ const { registerStartCommand } = require('./commands/start.command');
 const { registerMenuActions } = require('./actions/menu.actions');
 const { registerCloseAction } = require('./actions/close.action');
 const { registerErrorHandler } = require('./utils/errorHandler');
-
-// Si decides mantener tu comando de tarjetas, regístralo aquí:
+const { registerLogger } = require('./middlewares/logger.middleware');
+const { startAdminServer } = require('./admin/server');
 const { registerCardGenerator } = require('./features/card-generator/cardGenerator.command');
 const { registerRegenAction } = require('./features/card-generator/cardGenerator.actions');
 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Usuarios</title>
+    <link rel="stylesheet" href="/public/admin.css">
+</head>
+<body>
+
+<%- include('partials/sidebar') %>
+
+<div class="content">
+
+<h1>Usuarios</h1>
+
+<div class="table-container">
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Usuario</th>
+    <th>Mensajes</th>
+    <th>Acción</th>
+</tr>
+
+<% users.forEach(user => { %>
+<tr>
+    <td><%= user.id %></td>
+    <td>@<%= user.username %></td>
+    <td><%= user.message_count %></td>
+
+    <td>
+        <form method="POST" action="/admin/send/<%= user.id %>">
+            <input name="message" placeholder="Mensaje">
+            <button>Enviar</button>
+        </form>
+    </td>
+</tr>
+<% }) %>
+
+</table>
+</div>
+
+</div>
+
+</body>
+</html>
